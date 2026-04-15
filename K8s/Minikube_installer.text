@@ -1,0 +1,31 @@
+##Install Kvm Driver
+
+
+sudo apt update && sudo apt upgrade -y
+#Update the apt package manager
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst virt-manager -y
+#install kvm
+
+##Install minikube
+
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb^C
+#Pulling minikube.deb file from link
+sudo dpkg -i minikube_latest_amd64.deb
+#installing minikube
+
+minikube --version
+#checking version
+
+
+minikube start --driver=kvm2
+#Starting minikube with kvm driver
+minikube stop
+#Stop minikube but save settings
+minikube delete
+#Delete for fresh start
+
+
+
+##install kubectl
+sudo apt install -y kubectl
