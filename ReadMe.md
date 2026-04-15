@@ -4,4 +4,5 @@
 4. Java
 5. Docker
 6. Git
-7. Front end
+7. Kubernetes
+8. Front end
