@@ -8,6 +8,23 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst virt-manager -y
 #install kvm
 
+## Setting up KVM
+sudo usermod -aG libvirt $USER
+sudo usermod -aG kvm $USER
+# Setting user group
+
+sudo systemctl enable --now libvirtd
+# Enable kvm services
+
+sudo chmod 666 /dev/kvm
+# Permisson for kvm
+
+systemctl status libvirtd
+virsh list --all
+ls /dev/kvm
+# Health check for kvm
+
+
 ##Install minikube
 
 
@@ -16,7 +33,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest
 sudo dpkg -i minikube_latest_amd64.deb
 #installing minikube
 
-minikube --version
+minikube version
 #checking version
 
 
@@ -31,3 +48,27 @@ minikube delete
 
 ##install kubectl
 sudo apt install -y kubectl
+
+
+
+## After stopping minikube
+# KVM is still running in background so,
+
+
+sudo systemctl stop libvirtd.service libvirtd.socket libvirtd-admin.socket libvirtd-ro.socket virtlogd.service virtlogd.socket virtlogd-admin.socket virt-guest-shutdown.target
+
+# This stop all the services of kvm but 
+#you can't start minikube again so start then again before starting minikube
+
+
+systemctl list-units | grep libvirt
+# Check if all services is on or not
+
+## As MiniOs is lightweight os remove unused images
+
+minikube image list
+# list all the images 
+
+minikube image rm <image_name>
+# remove images 
+!! Only remove non-k8s essentials or only remove docker.io/library/ images not others
