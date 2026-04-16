@@ -1,7 +1,7 @@
 Sequence of start :
 mongo-secret.yaml
 mongo.yaml
-mongo-config.yaml
+mongo-configMap.yaml
 mongoexpress.yaml
 
 
