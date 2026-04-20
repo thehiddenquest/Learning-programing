@@ -101,5 +101,18 @@ void deletefirstnode(struct node** head){
     }
 }
 void deletelist(struct node** head){
-
+    if(*head == NULL){
+        printf("No linked list exists.");
+        wait();
+    }
+    else{
+        struct node* temp = NULL;
+        while(*head !=NULL){
+            temp = *head;
+            *head=( *head)->next;
+            free(temp);
+        }
+        printf("\nLinked list removed completely.");
+        wait();
+    }
 }
