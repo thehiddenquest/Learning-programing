@@ -13,6 +13,8 @@ void createlinkedlist(struct node**);
 void displaylinkedlist(struct node*);
 void deletefirstnode(struct node**);
 void deletelist(struct node**);
+void deletefirstval(struct node**);
+void deleteval(struct node**);
 
 int main(){
     int op=0,i;
@@ -26,7 +28,9 @@ int main(){
             case 2: displaylinkedlist(head);break;
             case 3: deletefirstnode(&head);break;
             case 4: deletelist(&head);break;
-            case 5: return 0;
+            case 5: deletefirstval(&head);break;
+            case 6: deleteval(&head);break;
+            case 7: return 0;
             default: printf("\nPlease, Insert an valid option!!!");
         }   
     }while(1);
@@ -44,7 +48,9 @@ void menu(){
         printf("\n2: Display linked list.");
         printf("\n3. Delete first node.");
         printf("\n4. Delete entire list.");
-        printf("\n5. Exit.");
+        printf("\n5. Delete first occurance of a value.");
+        printf("\n6. Delete value from the list.");
+        printf("\n7. Exit.");
         printf("\n------------------------------------------\n");
         printf("\nEnter option: ");
 }
@@ -115,4 +121,84 @@ void deletelist(struct node** head){
         printf("\nLinked list removed completely.");
         wait();
     }
+}
+void deletefirstval(struct node** head_adr){
+    if(*head_adr == NULL){
+        printf("No linked list exists.");
+        wait();
+        return;
+    }
+
+    int val;
+    printf("\nEnter the value to be deleted: ");
+    scanf("%d", &val);
+
+    struct node *temp = *head_adr, *prev = NULL;
+
+    if(temp->value == val){
+        *head_adr = temp->next;
+        free(temp);
+        printf("\nFirst occurrence of %d is deleted.", val);
+        wait();
+        return;
+    }
+
+    while(temp != NULL && temp->value != val){
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if(temp == NULL){
+        printf("\nValue not found.");
+        wait();
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+
+    printf("\nFirst occurrence of %d is deleted.", val);
+    wait();
+}
+void deleteval(struct node** head_adr){
+    if(*head_adr == NULL){
+        printf("No linked list exists.");
+        wait();
+        return;
+    }
+
+    int val, count = 0;
+    printf("\nEnter the value to be deleted: ");
+    scanf("%d", &val);
+
+    struct node *temp = *head_adr, *prev = NULL;
+
+    while(temp != NULL){
+        if(temp->value == val){
+            struct node* del = temp;
+
+            if(prev == NULL){
+                *head_adr = temp->next;
+                temp = *head_adr;
+            }
+            else{
+                prev->next = temp->next;
+                temp = temp->next;
+            }
+
+            free(del);
+            count++;
+        }
+        else{
+            prev = temp;
+            temp = temp->next;
+        }
+    }
+
+    if(count == 0)
+        printf("\nValue not found.");
+    else
+        printf("\nDeleted %d occurrence(s) of %d.", count, val);
+
+    wait();
 }
