@@ -31,6 +31,7 @@ int main(){
 
 	displayArr(Arr,numArr);
 
+	free(Arr);
 	return 0;
 }
 
@@ -66,34 +67,54 @@ void displayArr(int* Arr,int n){
 	printf("\n");
 }
 void mergeSort(int* Arr,int left_idx, int right_idx){
+	/* Mergesort implementation of array  
+	Input: 
+		int* Arr = Pointer to the array(first element)
+		int left_idx = left index value
+		int right_idx = right index value
+	*/
 	if(left_idx < right_idx){
 		int mid_idx = left_idx + (right_idx - left_idx)/2 ;
-
-		mergeSort(Arr, left_idx, mid_idx);
-		mergeSort(Arr, mid_idx+1, right_idx);
-
-		merge(Arr, left_idx, mid_idx, right_idx);
+		// Calculating the middle index 
+		/* (left_idx+right_idx)/2 can go beyond range */
+		mergeSort(Arr, left_idx, mid_idx);  // Recursive call for left part
+		mergeSort(Arr, mid_idx+1, right_idx); // Recursive call for right part
+		// Creating a logical separation 
+		
+		merge(Arr, left_idx, mid_idx, right_idx); // Combine 
 	}
 }
 void merge(int* Arr, int left_idx, int mid_idx, int right_idx){
+	/* Combine separated array  
+	Input: 
+		int* Arr = Pointer to the array(first element)
+		int left_idx = left index value
+		int mid_idx = middle index value
+		int right_idx = right index value
+	*/
     int i,j,k;
-    int numLeftArr = mid_idx - left_idx + 1;
-    int numRightArr = right_idx - mid_idx;
-    
-    int* leftArr = (int* )malloc(numLeftArr*sizeof(int));
+    int numLeftArr = mid_idx - left_idx + 1; // number of element to 5
+    int numRightArr = right_idx - mid_idx; // number of element from 5 to right idx
+
+	// Creating temporary storage for array
+    int* leftArr = (int* )malloc(numLeftArr*sizeof(int)); 
     int* rightArr = (int* )malloc(numRightArr*sizeof(int));
-    
+
+	/* Copying the left part into left Arr */
     for(i = 0; i < numLeftArr; i++){
         *(leftArr+i) = *(Arr+left_idx+i);
-    }
+    } 
+
+	/* Copying the right part into right Arr*/
     for(j = 0; j < numRightArr; j++){
         *(rightArr+j) = *(Arr+mid_idx+1+j);
     }
     
     i = 0;
     j = 0;
-    k = left_idx;
-    
+    k = left_idx; 
+
+	// Compare and sort 
     while(i < numLeftArr && j < numRightArr){
         if(*(leftArr+i) <= *(rightArr+j)){
             *(Arr+k) = *(leftArr+i);
@@ -105,7 +126,9 @@ void merge(int* Arr, int left_idx, int mid_idx, int right_idx){
         }
         k++;
     }
-    
+
+
+	// Inserting left overs
     while(i < numLeftArr){
         *(Arr+k) = *(leftArr+i);
         i++;
@@ -116,4 +139,6 @@ void merge(int* Arr, int left_idx, int mid_idx, int right_idx){
         j++;
         k++;
     }
+	free(leftArr);
+	free(rightArr);
 }
