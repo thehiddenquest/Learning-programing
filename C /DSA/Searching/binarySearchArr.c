@@ -1,4 +1,4 @@
-// Merge sort on array 
+
 /* Author : Rahul Biswas
    Modification date : 25-04-2026
    Name: binarySearchArr.c
