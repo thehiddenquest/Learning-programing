@@ -73,6 +73,42 @@ public class StringMethods {
                 System.out.println("The index of last 'world' in s7 is : "+s8.lastIndexOf("world"));
                 System.out.println("The index of before last 'world' in s7 is : "+s8.lastIndexOf("world", 50)); 
 
+        ////---------------String modification------------------
+                // substring : generate or substring from either startingIndex or start-endIndex
+
+                        String s8Moditifed1 = s8.substring(s8.indexOf("the"));
+                        System.out.println("Substring of s8 from first 'the' is:  "+s8Moditifed1);
+                        System.out.println("Substring of s8 : "+s8.substring(s8.indexOf("the"),s8.lastIndexOf("to")));
+                // concat : just concat
+
+                // replace : either replace all char or char of sequence from that
+                String s2Modified = s2.replace('H','h');
+                System.out.println("Modified s2 with small h is : "+s2Modified);
+                System.out.println("Modified s1 replaced world with love is : " +s1.replace("world","love"));
+                
+                //trim or strip : remove white spaces
+
+                // valueOf : converts in wrapper class object
+                int x = 10;
+                x +=5;
+                String xs = String.valueOf(x);
+                System.out.println(xs);
+
+                //toUpperCase and toLowerCase
+
+
+                //Joining string : takes elements or iterable 
+                String result1 = String.join("   ","Rahul","Anuska","Abc");
+                System.out.println(result1);
+
+
+                // contains : checks if a string contains a substring or not 
+
+                System.out.println("is world a part of string s1 ? : " + s1.contains("world"));
+
+                // isEmpty : checks for empty string
+
+                
         }
         
 
